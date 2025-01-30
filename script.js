@@ -20,7 +20,7 @@ var peliAlue = {
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(paivitaPeliAlue, 20);
         window.addEventListener('keydown', function (e) {
-            peliAlue.avaimet = (peliAlue.kavaimet || []);
+            peliAlue.avaimet = (peliAlue.avaimet || []);
             peliAlue.avaimet[e.key] = true
         })
         window.addEventListener('keyup', function (e) {
