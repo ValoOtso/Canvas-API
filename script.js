@@ -4,8 +4,8 @@ var pisteet;
 
 //pelin käynnistys
 function aloitaPeli() {
-    peliHahmo = new Komponentti();
-    pisteet = new Komponentti();
+    peliHahmo = new Komponentti(30, 30, 'red', 10, 120);
+    //pisteet = new Komponentti();
     peliAlue.aloita();
 }
 
@@ -35,8 +35,14 @@ var peliAlue = {
 }
 
 //komponentti konstruktori
-function Komponentti() {
-
+function Komponentti(width, height, color, x, y) {
+    this.width = width;
+    this.height = height;
+    this.x = x;
+    this.y = y;
+    ctx = peliAlue.context;
+    ctx.fillStyle = color;
+    ctx.fillRect(this.x, this.y, this.width, this.height)
 }
 
 //pelialueen päivitys
