@@ -4,7 +4,7 @@ var pisteet;
 
 //pelin käynnistys
 function aloitaPeli() {
-    peliHahmo = new Komponentti(30, 30, 'red', 10, 120);
+    peliHahmo = new Komponentti();
     pisteet = new Komponentti();
     peliAlue.aloita();
 }
