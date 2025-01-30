@@ -63,7 +63,7 @@ function Komponentti(width, height, color, x, y) {
         this.gravitySpeed += this.gravity;
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;  
-        this.hitBottom()      
+        this.hitBottom();   
     }
     this.hitBottom = function() {
         var rockbottom = peliAlue.canvas.height - this.height;
@@ -71,7 +71,7 @@ function Komponentti(width, height, color, x, y) {
           this.y = rockbottom;
           this.gravitySpeed = -(this.gravitySpeed * this.bounce);
         }
-    }
+    }  
 }
 
 //pelialueen päivitys
@@ -83,5 +83,4 @@ function paivitaPeliAlue() {
     peliHahmo.newPos();
     peliHahmo.update();
     peliHahmo.pomppu();
-
 }
