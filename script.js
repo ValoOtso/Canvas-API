@@ -26,6 +26,7 @@ var peliAlue = {
         window.addEventListener('keyup', function (e) {
             peliAlue.avaimet[e.key] = false;
         })
+        
     },
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -60,6 +61,7 @@ function Komponentti(width, height, color, x, y) {
 //pelialueen päivitys
 function paivitaPeliAlue() {
     peliAlue.clear();
+    peliHahmo.speedX = 0;
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowRight']) {peliHahmo.speedX = 1;}
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowLeft']) {peliHahmo.speedX = -1;}
     peliHahmo.newPos();
