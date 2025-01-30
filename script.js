@@ -4,7 +4,9 @@ var pisteet;
 
 //pelin käynnistys
 function aloitaPeli() {
-
+    peliHahmo = new Komponentti();
+    pisteet = new Komponentti();
+    peliAlue.aloita();
 }
 
 //canvas
