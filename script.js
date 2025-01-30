@@ -4,9 +4,10 @@ var pisteet;
 
 //pelin käynnistys
 function aloitaPeli() {
-    peliHahmo = new Komponentti(30, 30, 'red', 10, 120);
-    //pisteet = new Komponentti();
     peliAlue.aloita();
+    peliHahmo = new Komponentti(30, 30, 'red', 10, 10);
+    //pisteet = new Komponentti();
+    
 }
 
 //canvas
