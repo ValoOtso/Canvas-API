@@ -4,9 +4,10 @@ var pisteet;
 
 //pelin käynnistys
 function aloitaPeli() {
+    peliAlue.aloita();
     peliHahmo = new Komponentti(30, 30, 'red', 10, 120);
     //pisteet = new Komponentti();
-    peliAlue.aloita();
+    
 }
 
 //canvas
@@ -17,7 +18,7 @@ var peliAlue = {
         this.canvas.height = 480;
         this.context = this.canvas.getContext('2d');
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.interval = setInterval(paivitaPeliAlue, 20);
+       // this.interval = setInterval(paivitaPeliAlue, 20);
         window.addEventListener('keydown', function (e) {
             peliAlue.avaimet = (peliAlue.kavaimet || []);
             peliAlue.avaimet[e.key] = true
@@ -47,7 +48,7 @@ function Komponentti(width, height, color, x, y) {
 
 //pelialueen päivitys
 function paivitaPeliAlue() {
-    peliAlue.clear();
+   // peliAlue.clear();
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowRight']) {peliHahmo.speedX = 1;}
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowLeft']) {peliHahmo.speedX = -1;}
 }
