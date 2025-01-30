@@ -1,5 +1,5 @@
 var peliHahmo;
-var laatta = []
+var laatat = []
 var pisteet;
 
 //pelin käynnistys
