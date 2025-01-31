@@ -66,8 +66,7 @@ function Komponentti(width, height, color, x, y, type) {
         this.gravitySpeed += this.gravity;
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;  
-        this.hitBottom();   
-        this.osuLaattaan();
+        this.hitBottom();
     }
     this.hitBottom = function() {
         var rockbottom = peliAlue.canvas.height - this.height;
@@ -86,9 +85,9 @@ function Komponentti(width, height, color, x, y, type) {
             }
         }
     }  
-    this.osuLaattaan = function() {
+    this.osuLaattaan = function(laatta) {
         if (this.y > laatta.y-this.height && this.x < laatta.x + laatta.width && this.x + this.width > laatta.x){
-            this.y = laatta.y-this.height
+            this.pomppu()
             this.gravitySpeed = -9.6;
         }
     }
@@ -103,5 +102,6 @@ function paivitaPeliAlue() {
     peliHahmo.newPos();
     peliHahmo.update();
     peliHahmo.pomppu();
+    peliHahmo.osuLaattaan(laatta);
     laatta.update();
 }
