@@ -2,6 +2,7 @@ var peliHahmo;
 var laatat = []
 var laatta;
 var pisteet;
+var ensimmainenLaatta = false;
 
 //pelin käynnistys
 function aloitaPeli() {
@@ -69,7 +70,12 @@ function Komponentti(width, height, color, x, y, type) {
         this.hitBottom();
     }
     this.hitBottom = function() {
-        var rockbottom = peliAlue.canvas.height - this.height;
+        if (ensimmainenLaatta === false){
+            var rockbottom = peliAlue.canvas.height - this.height;
+        }else{
+            rockbottom = laatta.y-this.height
+        }
+        
         if (this.y > rockbottom) {
           this.y = rockbottom;
           this.gravitySpeed = -9.6;
@@ -86,7 +92,9 @@ function Komponentti(width, height, color, x, y, type) {
         }
     }  
     this.osuLaattaan = function(laatta) {
-        if (this.y > laatta.y-this.height && this.x < laatta.x + laatta.width && this.x + this.width > laatta.x){
+        if (this.y == laatta.y-this.height && this.x < laatta.x + laatta.width && this.x + this.width > laatta.x){
+            ensimmainenLaatta = true
+            this.y = laatta.y-this.height
             this.pomppu()
             this.gravitySpeed = -9.6;
         }
