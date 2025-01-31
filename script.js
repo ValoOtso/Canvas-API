@@ -48,7 +48,6 @@ function Komponentti(width, height, color, x, y) {
     this.speedY = 0;
     this.gravity = 0.3
     this.gravitySpeed = 0;
-    this.bounce = 1
     ctx = peliAlue.context;
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height)
@@ -73,7 +72,7 @@ function Komponentti(width, height, color, x, y) {
         var rockbottom = peliAlue.canvas.height - this.height;
         if (this.y > rockbottom) {
           this.y = rockbottom;
-          this.gravitySpeed = -(this.gravitySpeed * this.bounce);
+          this.gravitySpeed = -9.6;
         }
     }
     this.hitSides = function() {
@@ -87,7 +86,7 @@ function Komponentti(width, height, color, x, y) {
     this.osuLaattaan = function() {
         if (this.y > laatta.y-this.height && this.x < laatta.x + laatta.width && this.x + this.width > laatta.x){
             this.y = laatta.y-this.height
-            this.gravitySpeed = -(this.gravitySpeed * this.bounce)
+            this.gravitySpeed = -9.6;
         }
     }
 }
