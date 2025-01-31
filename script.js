@@ -68,6 +68,7 @@ function Komponentti(width, height, color, x, y, type) {
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;  
         this.hitBottom();
+        this.osuLaattaan()
     }
     this.hitBottom = function() {
         if (ensimmainenLaatta === false){
@@ -91,13 +92,24 @@ function Komponentti(width, height, color, x, y, type) {
             }
         }
     }  
-    this.osuLaattaan = function(laatta) {
-        if (this.y == laatta.y-this.height && this.x < laatta.x + laatta.width && this.x + this.width > laatta.x){
-            ensimmainenLaatta = true
-            this.y = laatta.y-this.height
-            this.pomppu()
-            this.gravitySpeed = -9.6;
+    this.osuLaattaan = function() {
+        if (this.type == 'peliHahmo') {
+            var myleft = this.x;
+            var myright = this.x + (this.width);
+            var mytop = this.y;
+            var mybottom = this.y + (this.height);
+            var otherleft = laatta.x;
+            var otherright = laatta.x + (laatta.width);
+            var othertop = laatta.y;
+            var otherbottom = laatta.y + (laatta.height);
+            if (mybottom <= othertop+1 && mybottom >= othertop-1 && myright >= otherleft && myleft <= otherright) {
+                this.gravitySpeed = -9.6
+                console.log('osui laattaan')
+            } else {
+                console.log('ei osunut laattaan')
+            }
         }
+       
     }
 }
 
@@ -110,6 +122,5 @@ function paivitaPeliAlue() {
     peliHahmo.newPos();
     peliHahmo.update();
     peliHahmo.pomppu();
-    peliHahmo.osuLaattaan(laatta);
     laatta.update();
 }
