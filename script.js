@@ -145,13 +145,13 @@ function paivitaPeliAlue() {
         let x = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
         let gap = Math.floor(Math.random() * maxGap) + 1;
         if (x <= previousX-maxGap) {
-            x = previousX - gap
+            x = previousX - gap;
         } else if (x >= previousX+maxGap) {
-            x = previousX + gap
+            x = previousX + gap;
         }
-        laatat.push(new Komponentti(35, 5, 'brown', x, 0))
-        previousX = x
-        console.log('x =', x, 'gap =', gap)
+        laatat.push(new Komponentti(35, 5, 'brown', x, 0));
+        previousX = x;
+        console.log('x =', x, 'gap =', gap);
     }
     for (i = 0; i < laatat.length; i++) {
         laatat[i].y += 1;
