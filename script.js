@@ -9,7 +9,7 @@ function aloitaPeli() {
     peliAlue.aloita();
     peliHahmo = new Komponentti(30, 30, 'red', 130, 300, 'peliHahmo');
     pisteet = new Komponentti("20px", "Consolas", "black", 10, 470, "text");
-    laatta = new Komponentti(35, 5, 'brown', 10, 350)
+    laatta = new Komponentti(35, 5, 'brown', 130, 350)
     laatat.push(laatta)
     
 }
@@ -125,7 +125,7 @@ function Komponentti(width, height, color, x, y, type) {
                 var otherleftA = laatat[i].x;
                 var otherrightA = laatat[i].x + (laatat[i].width);
                 var othertopA = laatat[i].y;
-                if (mybottom <= othertopA+10 && mybottom >= othertopA-10 && myright >= otherleftA && myleft <= otherrightA) {
+                if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
                     this.gravitySpeed = -9.6
                 }
             }
