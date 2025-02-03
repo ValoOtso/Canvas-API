@@ -8,7 +8,7 @@ var ensimmainenLaatta = false;
 function aloitaPeli() {
     peliAlue.aloita();
     peliHahmo = new Komponentti(30, 30, 'red', 130, 300, 'peliHahmo');
-    pisteet = new Komponentti("20px", "Consolas", "black", 10, 20, "text");
+    pisteet = new Komponentti("20px", "Consolas", "black", 10, 470, "text");
     laatta = new Komponentti(35, 5, 'brown', 10, 350)
     
 }
@@ -128,7 +128,6 @@ function Komponentti(width, height, color, x, y, type) {
                     this.gravitySpeed = -9.6
                 }
             }
-       
         }
     }
 }
@@ -138,7 +137,19 @@ function paivitaPeliAlue() {
     peliAlue.clear();
     peliAlue.frameNo += 1;
     if (peliAlue.frameNo == 1 || everyinterval(150)) {
-       laatat.push(new Komponentti(35, 5, 'brown', 150, 30))
+        const minWidth = 10;
+        const maxWidth = 225;
+        let previousX = 0;
+        let x = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
+        let gap = Math.floor(Math.random() * 170) + 1;
+        if (x <= previousX-170) {
+            x = previousX - gap
+        } else if (x >= previousX+170) {
+            x = previousX + gap
+        }
+        laatat.push(new Komponentti(35, 5, 'brown', x, 0))
+        previousX = x
+        console.log('x =', x, 'gap =', gap)
     }
     for (i = 0; i < laatat.length; i++) {
         laatat[i].y += 1;
