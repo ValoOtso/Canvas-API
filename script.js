@@ -3,6 +3,7 @@ var laatat = []
 var laatta;
 var pisteet;
 var ensimmainenLaatta = false;
+let previousX = 0;
 
 //pelin käynnistys
 function aloitaPeli() {
@@ -140,14 +141,14 @@ function paivitaPeliAlue() {
     if (peliAlue.frameNo == 1 || everyinterval(150)) {
         const minWidth = 10;
         const maxWidth = peliAlue.canvas.width-45;
-        let previousX = 0;
-        const maxGap = 160;
+        const maxGap = 135;
         let x = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
-        let gap = Math.floor(Math.random() * maxGap) + 1;
         if (x <= previousX-maxGap) {
-            x = previousX - gap;
+            x = previousX-maxGap;
+            console.log('a')
         } else if (x >= previousX+maxGap) {
-            x = previousX + gap;
+            x = previousX+maxGap;
+            console.log('b')
         }
         laatat.push(new Komponentti(35, 5, 'brown', x, 0));
         previousX = x;
