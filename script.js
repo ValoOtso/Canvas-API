@@ -141,7 +141,7 @@ function paivitaPeliAlue() {
         const minWidth = 10;
         const maxWidth = peliAlue.canvas.width-45;
         let previousX = 0;
-        const maxGap = 170;
+        const maxGap = 160;
         let x = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
         let gap = Math.floor(Math.random() * maxGap) + 1;
         if (x <= previousX-maxGap) {
