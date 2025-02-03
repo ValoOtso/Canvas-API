@@ -3,6 +3,7 @@ var laatat = []
 var laatta;
 var pisteet;
 var ensimmainenLaatta = false;
+let previousX = 0;
 
 //pelin käynnistys
 function aloitaPeli() {
@@ -140,39 +141,35 @@ function Komponentti(width, height, color, x, y, type) {
 
 //pelialueen päivitys
 function paivitaPeliAlue() {
-    if (peliHahmo.gameOver()==true){
-        peliAlue.stop();
-    }else{
-        peliAlue.clear();
-        peliAlue.frameNo += 1;
-        if (peliAlue.frameNo == 1 || everyinterval(150)) {
-            const minWidth = 10;
-            const maxWidth = peliAlue.canvas.width-45;
-            let previousX = 0;
-            const maxGap = 160;
-            let x = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
-            let gap = Math.floor(Math.random() * maxGap) + 1;
-            if (x <= previousX-maxGap) {
-                x = previousX - gap;
-            } else if (x >= previousX+maxGap) {
-                x = previousX + gap;
-            }
-            laatat.push(new Komponentti(35, 5, 'brown', x, 0));
-            previousX = x;
-            console.log('x =', x, 'gap =', gap);
+    peliAlue.clear();
+    peliAlue.frameNo += 1;
+    if (peliAlue.frameNo == 1 || everyinterval(150)) {
+        const minWidth = 10;
+        const maxWidth = peliAlue.canvas.width-45;
+        let previousX = 0;
+        const maxGap = 160;
+        let x = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
+        let gap = Math.floor(Math.random() * maxGap) + 1;
+        if (x <= previousX-maxGap) {
+            x = previousX - gap;
+        } else if (x >= previousX+maxGap) {
+            x = previousX + gap;
         }
-        for (i = 0; i < laatat.length; i++) {
-            laatat[i].y += 1;
-            laatat[i].update();
-        }
-        peliHahmo.speedX = 0;
-        if (peliAlue.avaimet && peliAlue.avaimet['ArrowRight']) {peliHahmo.speedX = 1;}
-        if (peliAlue.avaimet && peliAlue.avaimet['ArrowLeft']) {peliHahmo.speedX = -1;}
-        peliHahmo.newPos();
-        peliHahmo.update();
-        peliHahmo.pomppu();
-        laatta.update();
-        pisteet.text = 'Pisteet: ' + peliAlue.frameNo;
-        pisteet.update();
+        laatat.push(new Komponentti(35, 5, 'brown', x, 0));
+        previousX = x;
+        console.log('x =', x, 'gap =', gap);
     }
+    for (i = 0; i < laatat.length; i++) {
+        laatat[i].y += 1;
+        laatat[i].update();
+    }
+    peliHahmo.speedX = 0;
+    if (peliAlue.avaimet && peliAlue.avaimet['ArrowRight']) {peliHahmo.speedX = 1;}
+    if (peliAlue.avaimet && peliAlue.avaimet['ArrowLeft']) {peliHahmo.speedX = -1;}
+    peliHahmo.newPos();
+    peliHahmo.update();
+    peliHahmo.pomppu();
+    laatta.update();
+    pisteet.text = 'Pisteet: ' + peliAlue.frameNo;
+    pisteet.update();
 }
