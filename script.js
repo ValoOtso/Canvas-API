@@ -141,11 +141,12 @@ function paivitaPeliAlue() {
         const minWidth = 10;
         const maxWidth = 225;
         let previousX = 0;
+        const maxGap = 170;
         let x = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
-        let gap = Math.floor(Math.random() * 170) + 1;
-        if (x <= previousX-170) {
+        let gap = Math.floor(Math.random() * maxGap) + 1;
+        if (x <= previousX-maxGap) {
             x = previousX - gap
-        } else if (x >= previousX+170) {
+        } else if (x >= previousX+maxGap) {
             x = previousX + gap
         }
         laatat.push(new Komponentti(35, 5, 'brown', x, 0))
