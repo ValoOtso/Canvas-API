@@ -139,7 +139,7 @@ function paivitaPeliAlue() {
     peliAlue.frameNo += 1;
     if (peliAlue.frameNo == 1 || everyinterval(150)) {
         const minWidth = 10;
-        const maxWidth = 225;
+        const maxWidth = peliAlue.canvas.width-45;
         let previousX = 0;
         const maxGap = 170;
         let x = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
