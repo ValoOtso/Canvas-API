@@ -154,7 +154,7 @@ function paivitaPeliAlue() {
         }
         laatat.push(new Komponentti(35, 5, 'brown', x, 0));
         previousX = x;
-        console.log('x =', x, 'gap =', gap);
+        console.log('x =', x);
     }
     for (i = 0; i < laatat.length; i++) {
         laatat[i].y += 1;
