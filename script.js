@@ -164,6 +164,6 @@ function paivitaPeliAlue() {
     peliHahmo.update();
     peliHahmo.pomppu();
     laatta.update();
-    pisteet.text = 'Pisteet: ';
+    pisteet.text = 'Pisteet: ' + peliAlue.frameNo;
     pisteet.update();
 }
