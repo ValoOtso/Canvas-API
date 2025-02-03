@@ -21,6 +21,7 @@ var peliAlue = {
         this.canvas.height = 480;
         this.context = this.canvas.getContext('2d');
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.frameNo = 0;
         this.interval = setInterval(paivitaPeliAlue, 20);
         window.addEventListener('keydown', function (e) {
             peliAlue.avaimet = (peliAlue.avaimet || []);
@@ -37,6 +38,13 @@ var peliAlue = {
     stop : function() {
         clearInterval(this.interval);
     }
+}
+
+function everyinterval(n) {
+    if ((peliAlue.frameNo / n) % 1 == 0) {
+        return true;
+    }
+    return false;
 }
 
 //komponentti konstruktori
@@ -108,20 +116,34 @@ function Komponentti(width, height, color, x, y, type) {
             var otherright = laatta.x + (laatta.width);
             var othertop = laatta.y;
             var otherbottom = laatta.y + (laatta.height);
-            if (mybottom <= othertop+1 && mybottom >= othertop-1 && myright >= otherleft && myleft <= otherright) {
+            if (mybottom <= othertop+5 && mybottom >= othertop-5 && myright >= otherleft && myleft <= otherright) {
                 this.gravitySpeed = -9.6
                 console.log('osui laattaan')
-            } else {
-                console.log('ei osunut laattaan')
             }
-        }
+            for (i = 0; i < laatat.length; i++) {
+                var otherleftA = laatat[i].x;
+                var otherrightA = laatat[i].x + (laatat[i].width);
+                var othertopA = laatat[i].y;
+                if (mybottom <= othertopA+5 && mybottom >= othertopA-5 && myright >= otherleftA && myleft <= otherrightA) {
+                    this.gravitySpeed = -9.6
+                }
+            }
        
+        }
     }
 }
 
 //pelialueen päivitys
 function paivitaPeliAlue() {
     peliAlue.clear();
+    peliAlue.frameNo += 1;
+    if (peliAlue.frameNo == 1 || everyinterval(150)) {
+       laatat.push(new Komponentti(35, 5, 'brown', 150, 30))
+    }
+    for (i = 0; i < laatat.length; i++) {
+        laatat[i].y += 1;
+        laatat[i].update();
+    }
     peliHahmo.speedX = 0;
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowRight']) {peliHahmo.speedX = 1;}
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowLeft']) {peliHahmo.speedX = -1;}
