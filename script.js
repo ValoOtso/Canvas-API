@@ -8,7 +8,7 @@ var ensimmainenLaatta = false;
 function aloitaPeli() {
     peliAlue.aloita();
     peliHahmo = new Komponentti(30, 30, 'red', 130, 300, 'peliHahmo');
-    pisteet = new Komponentti("20px", "Consolas", "black", 10, 470, "text");
+    pisteet = new Komponentti("20px", "Consolas", "black", 10, 690, "text");
     laatta = new Komponentti(35, 5, 'brown', 130, 350)
     laatat.push(laatta)
     
@@ -18,8 +18,8 @@ function aloitaPeli() {
 var peliAlue = {
     canvas : document.createElement('canvas'),
     aloita : function() {
-        this.canvas.width = 270;
-        this.canvas.height = 480;
+        this.canvas.width = 400;
+        this.canvas.height = 700;
         this.context = this.canvas.getContext('2d');
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
