@@ -116,7 +116,7 @@ function Komponentti(width, height, color, x, y, type) {
             var otherright = laatta.x + (laatta.width);
             var othertop = laatta.y;
             var otherbottom = laatta.y + (laatta.height);
-            if (mybottom <= othertop+5 && mybottom >= othertop-5 && myright >= otherleft && myleft <= otherright) {
+            if (mybottom <= othertop+10 && mybottom >= othertop-10 && myright >= otherleft && myleft <= otherright) {
                 this.gravitySpeed = -9.6
                 console.log('osui laattaan')
             }
@@ -124,7 +124,7 @@ function Komponentti(width, height, color, x, y, type) {
                 var otherleftA = laatat[i].x;
                 var otherrightA = laatat[i].x + (laatat[i].width);
                 var othertopA = laatat[i].y;
-                if (mybottom <= othertopA+5 && mybottom >= othertopA-5 && myright >= otherleftA && myleft <= otherrightA) {
+                if (mybottom <= othertopA+10 && mybottom >= othertopA-10 && myright >= otherleftA && myleft <= otherrightA) {
                     this.gravitySpeed = -9.6
                 }
             }
