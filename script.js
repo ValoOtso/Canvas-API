@@ -10,6 +10,7 @@ function aloitaPeli() {
     peliHahmo = new Komponentti(30, 30, 'red', 130, 300, 'peliHahmo');
     pisteet = new Komponentti("20px", "Consolas", "black", 10, 470, "text");
     laatta = new Komponentti(35, 5, 'brown', 10, 350)
+    laatat.push(laatta)
     
 }
 
