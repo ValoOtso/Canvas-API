@@ -8,7 +8,7 @@ var ensimmainenLaatta = false;
 function aloitaPeli() {
     peliAlue.aloita();
     peliHahmo = new Komponentti(30, 30, 'red', 130, 300, 'peliHahmo');
-    pisteet = new Komponentti("30px", "Consolas", "black", 280, 40, "text");
+    pisteet = new Komponentti("20px", "Consolas", "black", 10, 20, "text");
     laatta = new Komponentti(35, 5, 'brown', 10, 350)
     
 }
@@ -55,8 +55,14 @@ function Komponentti(width, height, color, x, y, type) {
     ctx.fillRect(this.x, this.y, this.width, this.height)
     this.update = function() {
         ctx = peliAlue.context;
-        ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        if (this.type == 'text') {
+            ctx.font = this.width + ' ' + this.height;
+            ctx.fillStyle = color;
+            ctx.fillText(this.text, this.x, this.y);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
     }
     this.newPos = function() {
         this.x += this.speedX;
@@ -123,4 +129,6 @@ function paivitaPeliAlue() {
     peliHahmo.update();
     peliHahmo.pomppu();
     laatta.update();
+    pisteet.text = 'Pisteet: ';
+    pisteet.update();
 }
