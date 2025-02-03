@@ -8,11 +8,13 @@ let previousX = 0;
 //pelin käynnistys
 function aloitaPeli() {
     peliAlue.aloita();
-    peliHahmo = new Komponentti(30, 30, 'red', 130, 300, 'peliHahmo');
+    peliHahmo = new Komponentti(30, 30, 'red', 0, 700, 'peliHahmo');
     pisteet = new Komponentti("20px", "Consolas", "black", 10, 690, "text");
     laatta = new Komponentti(35, 5, 'brown', 130, 350)
     laatat.push(laatta)
-    
+    laatat.push(new Komponentti(35, 5, 'brown', 100, 200));
+    laatat.push(new Komponentti(35, 5, 'brown', 140, 100));
+    laatat.push(new Komponentti(35, 5, 'brown', 90, 500));
 }
 
 //canvas
