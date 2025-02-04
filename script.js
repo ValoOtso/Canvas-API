@@ -14,6 +14,7 @@ function aloitaPeli() {
     peliAlue.aloita();
     peliHahmo = new Komponentti(30, 30, 'red', 0, 700, 'peliHahmo');
     pisteet = new Komponentti("20px", "Consolas", "black", 10, 690, "text");
+    //Jokaiselle laatalle asetetaan 'laatta' tyyppi statuksen asetusta varten konstruktorissa.
     laatta = new Komponentti(35, 5, 'brown', 130, 350, 'laatta')
     laatat.push(laatta)
     laatat.push(new Komponentti(35, 5, 'brown', 100, 200, 'laatta'));
@@ -68,6 +69,8 @@ function Komponentti(width, height, color, x, y, type) {
     this.gravitySpeed = 0;
     this.type = type
     if (this.type == 'laatta') {
+        // Jos komponentin tyyppi on 'laatta' asetetaan this.status = 0;, toistaiseksi tätä käytetään
+        // vain pistelaskuun osuLaattaan funktiossa.
         this.status = 0;
     }
     ctx = peliAlue.context;
@@ -94,6 +97,7 @@ function Komponentti(width, height, color, x, y, type) {
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;  
         this.hitBottom();
+        // En usko että alla olevat 'laatta' ja 'erikoislaatta' ovat tarpeellisia.
         this.osuLaattaan(laatta, laatat)
         this.osuLaattaan(erikoisLaatta, erikoisLaatat)
     }
@@ -131,21 +135,20 @@ function Komponentti(width, height, color, x, y, type) {
             var myleft = this.x;
             var myright = this.x + (this.width);
             var mybottom = this.y + (this.height);
+            // En oikein ymmärrä mikä laattaTyylin tarkoitus on?
             var otherleft = laattaTyyli.x;
             var otherright = laattaTyyli.x + (laattaTyyli.width);
             var othertop = laattaTyyli.y;
-            if (mybottom <= othertop && mybottom >= othertop+20 && myright >= otherleft && myleft <= otherright) {
-                this.gravitySpeed = -9.6
-                console.log('osui laattaan')
-            }
+            
             for (i = 0; i < laattaLista.length; i++) {
                 var otherleftA = laattaLista[i].x;
                 var otherrightA = laattaLista[i].x + (laattaLista[i].width);
                 var othertopA = laattaLista[i].y;
                 if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
-                    this.gravitySpeed = -9.6
-                    if (laatat[i].status == 0) {
-                        laatat[i].status = 1;
+                    this.gravitySpeed = -9.6;
+                    // Kun laatalle osuu ensimmäisen kerran saa pisteen.
+                    if (laattaLista[i].status == 0) {
+                        laattaLista[i].status = 1;
                         pisteLuku += 1;
                     }
                 }
@@ -173,6 +176,7 @@ function paivitaPeliAlue() {
             x = previousX+maxGap;
             console.log('b')
         }
+        //Jokaiselle laatalle asetetaan 'laatta' tyyppi statuksen asetusta varten konstruktorissa.
         laatat.push(new Komponentti(35, 5, 'brown', x, 0, 'laatta'));
         previousX = x;
         console.log('x =', x);
@@ -192,7 +196,10 @@ function paivitaPeliAlue() {
             let laatta3 = 'blue' //hirviö
             variNumero = Math.floor(Math.random()*3)+1
             let x2 = Math.floor(Math.random()*400)+1
-            erikoisLaatta = new Komponentti(35, 5, 'red', x2, 0)
+            // Jokaiselle laatalle asetetaan 'laatta' tyyppi statuksen asetusta varten konstruktorissa.
+            // Miksi erikoislaatta julistetaan erikseen muuttujana? Komponentit voi pushata suoraan arrayhin
+            // ja osuLaattaan() käy ne for- silmukassa läpi joka tapauksessa. Sama pätee 'laatta' muuttujaan.
+            erikoisLaatta = new Komponentti(35, 5, 'red', x2, 0, 'laatta')
             erikoisLaatat.push(erikoisLaatta)
         }
     }
