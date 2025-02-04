@@ -140,7 +140,7 @@ function Komponentti(width, height, color, x, y, type) {
             // En oikein ymmärrä mikä laattaTyylin tarkoitus on? Alunperin tällä kohtaa oli muuttujia
             // toisen komponentin reunoja varten, koska ensimmäinen laatta ei ollut arrayssä. Nyt alla
             // oleva for- silmukka laskee kollision kaikille komponenteille jotka ovat iteroitavaksi annetussa
-            // arrayssä joten en usko että näille on tarvetta.
+            // arrayssä joten en usko että näille alla oleville kolmelle on tarvetta.
             var otherleft = laattaTyyli.x;
             var otherright = laattaTyyli.x + (laattaTyyli.width);
             var othertop = laattaTyyli.y;
