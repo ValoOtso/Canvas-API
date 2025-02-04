@@ -5,7 +5,7 @@ var erikoisLaatat = [];
 var erikoisLaatta;
 var pisteet;
 var ensimmainenLaatta = false;
-let previousX = 0;
+let previousX = 140;
 let pisteLuku = 0;
 
 
@@ -61,6 +61,7 @@ function everyinterval(n) {
 function Komponentti(width, height, color, x, y, type) {
     this.width = width;
     this.height = height;
+    this.color = color
     this.x = x;
     this.y = y;
     this.speedX = 0;
@@ -80,10 +81,10 @@ function Komponentti(width, height, color, x, y, type) {
         ctx = peliAlue.context;
         if (this.type == 'text') {
             ctx.font = this.width + ' ' + this.height;
-            ctx.fillStyle = color;
+            ctx.fillStyle = this.color;
             ctx.fillText(this.text, this.x, this.y);
         } else {
-            ctx.fillStyle = color;
+            ctx.fillStyle = this.color;
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
     }
@@ -140,20 +141,24 @@ function Komponentti(width, height, color, x, y, type) {
             // toisen komponentin reunoja varten, koska ensimmäinen laatta ei ollut arrayssä. Nyt alla
             // oleva for- silmukka laskee kollision kaikille komponenteille jotka ovat iteroitavaksi annetussa
             // arrayssä joten en usko että näille on tarvetta.
-            var otherleft = laattaTyyli.x;
-            var otherright = laattaTyyli.x + (laattaTyyli.width);
-            var othertop = laattaTyyli.y;
+           // var otherleft = laattaTyyli.x;
+            //var otherright = laattaTyyli.x + (laattaTyyli.width);
+           // var othertop = laattaTyyli.y;
             
             for (i = 0; i < laattaLista.length; i++) {
-                var otherleftA = laattaLista[i].x;
-                var otherrightA = laattaLista[i].x + (laattaLista[i].width);
-                var othertopA = laattaLista[i].y;
-                if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
-                    this.gravitySpeed = -9.6
-                    // Kun laatalle osuu ensimmäisen kerran saa pisteen.
-                    if (laattaLista[i].status == 0) {
-                        laattaLista[i].status = 1;
-                        pisteLuku += 1;
+                if (laattaLista[i].color == 'red' && laattaLista[i].status == 1) {
+                    continue
+                } else {
+                    var otherleftA = laattaLista[i].x;
+                    var otherrightA = laattaLista[i].x + (laattaLista[i].width);
+                    var othertopA = laattaLista[i].y;
+                    if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
+                        this.gravitySpeed = -9.6
+                        // Kun laatalle osuu ensimmäisen kerran saa pisteen.
+                        if (laattaLista[i].status == 0) {
+                            laattaLista[i].status = 1;
+                            pisteLuku += 1;
+                        }
                     }
                 }
             }
@@ -189,38 +194,41 @@ function paivitaPeliAlue() {
         laatat[i].y += 1;
         laatat[i].update();
     }
-
-    randomTime = Math.random() * (10000 - 4000) + 4000;
+    var randomTime = Math.random() * (10000 - 4000) + 4000;
     setTimeout(erikoisLaattaFunktio(), randomTime)
-    //erikoislaatat
-    function erikoisLaattaFunktio(){
-        if (peliAlue.frameNo == 1 || everyinterval(200)) {
-            let laatta1 = 'red' //hajoava laatta
-            let laatta2 = 'green' //raketti
-            let laatta3 = 'blue' //hirviö
-            variNumero = Math.floor(Math.random()*3)+1
-            let x2 = Math.floor(Math.random()*400)+1
-            // Jokaiselle laatalle asetetaan 'laatta' tyyppi statuksen asetusta varten konstruktorissa.
-            // Miksi erikoislaatta julistetaan erikseen muuttujana? Komponentit voi pushata suoraan arrayhin
-            // ja osuLaattaan() käy ne for- silmukassa läpi joka tapauksessa. Sama pätee 'laatta' muuttujaan.
-            erikoisLaatta = new Komponentti(35, 5, 'red', x2, 0, 'laatta')
-            erikoisLaatat.push(erikoisLaatta)
-        }
-    }
-
-    for (i = 0; i < erikoisLaatat.length; i++) {
-        erikoisLaatat[i].y += 1;
-        erikoisLaatat[i].update();
-    }
-
     peliHahmo.speedX = 0;
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowRight']) {peliHahmo.speedX = 1;}
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowLeft']) {peliHahmo.speedX = -1;}
     peliHahmo.newPos();
     peliHahmo.update();
     peliHahmo.pomppu();
+    for (i = 0; i < erikoisLaatat.length; i++) {
+        if (erikoisLaatat[i].color == 'red' && erikoisLaatat[i].status == 1) {
+            continue
+        } else {
+            erikoisLaatat[i].y += 1;
+            erikoisLaatat[i].update();
+        }
+    }
     laatta.update();
     pisteet.text = 'Pisteet: ' + pisteLuku;
     pisteet.update();
+    }
+}
+
+
+//erikoislaatat
+function erikoisLaattaFunktio(){
+    if (peliAlue.frameNo == 1 || everyinterval(200)) {
+        let laatta1 = 'red' //hajoava laatta
+        let laatta2 = 'green' //raketti
+        let laatta3 = 'blue' //hirviö
+        variNumero = Math.floor(Math.random()*3)+1
+        let x2 = Math.floor(Math.random()*400)+1
+        // Jokaiselle laatalle asetetaan 'laatta' tyyppi statuksen asetusta varten konstruktorissa.
+        // Miksi erikoislaatta julistetaan erikseen muuttujana? Komponentit voi pushata suoraan arrayhin
+        // ja osuLaattaan() käy ne for- silmukassa läpi joka tapauksessa. Sama pätee 'laatta' muuttujaan.
+        erikoisLaatta = new Komponentti(35, 5, 'red', x2, 0, 'laatta')
+        erikoisLaatat.push(erikoisLaatta)
     }
 }
