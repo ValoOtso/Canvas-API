@@ -145,6 +145,9 @@ function Komponentti(width, height, color, x, y, type) {
                 var otherrightA = laattaLista[i].x + (laattaLista[i].width);
                 var othertopA = laattaLista[i].y;
                 if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
+                    this.gravitySpeed = -9.6
+                    if (laattaLista[i].status == 0) {
+                        laattaLista[i].status = 1;
                     this.gravitySpeed = -9.6;
                     // Kun laatalle osuu ensimmäisen kerran saa pisteen.
                     if (laattaLista[i].status == 0) {
