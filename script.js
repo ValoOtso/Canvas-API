@@ -144,8 +144,8 @@ function Komponentti(width, height, color, x, y, type) {
                 var othertopA = laattaLista[i].y;
                 if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
                     this.gravitySpeed = -9.6
-                    if (laatat[i].status == 0) {
-                        laatat[i].status = 1;
+                    if (laattaLista[i].status == 0) {
+                        laattaLista[i].status = 1;
                         pisteLuku += 1;
                     }
                 }
