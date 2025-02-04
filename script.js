@@ -138,6 +138,9 @@ function Komponentti(width, height, color, x, y, type) {
 
 //pelialueen päivitys
 function paivitaPeliAlue() {
+    if(peliHahmo.gameOver()){
+        peliAlue.stop()
+    }else{
     peliAlue.clear();
     peliAlue.frameNo += 1;
     if (peliAlue.frameNo == 1 || everyinterval(150)) {
@@ -169,4 +172,5 @@ function paivitaPeliAlue() {
     laatta.update();
     pisteet.text = 'Pisteet: ' + peliAlue.frameNo;
     pisteet.update();
+    }
 }
