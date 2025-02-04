@@ -97,7 +97,8 @@ function Komponentti(width, height, color, x, y, type) {
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;  
         this.hitBottom();
-        // En usko että alla olevat 'laatta' ja 'erikoislaatta' ovat tarpeellisia.
+        // En usko että alla olevat 'laatta' ja 'erikoislaatta' ovat tarpeellisia. Katso
+        // laajempi selitys osuLaattaan() funktion kommentissa.
         this.osuLaattaan(laatta, laatat)
         this.osuLaattaan(erikoisLaatta, erikoisLaatat)
     }
