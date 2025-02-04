@@ -89,9 +89,7 @@ function Komponentti(width, height, color, x, y, type) {
         this.osuLaattaan()
     }
     this.hitBottom = function() {
-        
-            var rockbottom = peliAlue.canvas.height - this.height;
-        
+        var rockbottom = peliAlue.canvas.height - this.height;
         if (this.y > rockbottom) {
           this.y = rockbottom;
           this.gravitySpeed = -9.6;
@@ -112,6 +110,10 @@ function Komponentti(width, height, color, x, y, type) {
             }
             if ((this.x) > peliAlue.canvas.width) {
                 this.x = 0;
+            }
+            if (this.y < 0) {
+                this.y = 0;
+                this.gravitySpeed = 0;
             }
         }
     }  
