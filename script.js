@@ -131,7 +131,7 @@ function Komponentti(width, height, color, x, y, type) {
                 var otherleftA = laatat[i].x;
                 var otherrightA = laatat[i].x + (laatat[i].width);
                 var othertopA = laatat[i].y;
-                if (mybottom <= othertopA && mybottom >= othertopA+20 && myright >= otherleftA && myleft <= otherrightA) {
+                if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
                     this.gravitySpeed = -9.6
                 }
             }
