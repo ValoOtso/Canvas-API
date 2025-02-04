@@ -89,16 +89,21 @@ function Komponentti(width, height, color, x, y, type) {
         this.osuLaattaan()
     }
     this.hitBottom = function() {
-        if (ensimmainenLaatta === false){
+        
             var rockbottom = peliAlue.canvas.height - this.height;
-        }else{
-            rockbottom = laatta.y-this.height
-        }
         
         if (this.y > rockbottom) {
           this.y = rockbottom;
           this.gravitySpeed = -9.6;
         }
+    }
+    this.gameOver = function() {
+        rockbottom = peliAlue.canvas.height - this.height;
+        var crash = false;
+        if(peliAlue.frameNo >= 200 && this.y == rockbottom){
+            crash = true;
+        }
+        return crash
     }
     this.hitSides = function() {
         if (this.type == 'peliHahmo') {
