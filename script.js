@@ -8,6 +8,7 @@ var ensimmainenLaatta = false;
 let previousX = 0;
 let pisteLuku = 0;
 
+
 //pelin käynnistys
 function aloitaPeli() {
     peliAlue.aloita();
@@ -54,6 +55,7 @@ function everyinterval(n) {
     return false;
 }
 
+
 //komponentti konstruktori
 function Komponentti(width, height, color, x, y, type) {
     this.width = width;
@@ -92,7 +94,8 @@ function Komponentti(width, height, color, x, y, type) {
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;  
         this.hitBottom();
-        this.osuLaattaan()
+        this.osuLaattaan(laatta, laatat)
+        this.osuLaattaan(erikoisLaatta, erikoisLaatat)
     }
     this.hitBottom = function() {
         var rockbottom = peliAlue.canvas.height - this.height;
@@ -123,15 +126,22 @@ function Komponentti(width, height, color, x, y, type) {
             }
         }
     }  
-    this.osuLaattaan = function() {
+    this.osuLaattaan = function(laattaTyyli, laattaLista) {
         if (this.type == 'peliHahmo') {
             var myleft = this.x;
             var myright = this.x + (this.width);
             var mybottom = this.y + (this.height);
-            for (i = 0; i < laatat.length; i++) {
-                var otherleftA = laatat[i].x;
-                var otherrightA = laatat[i].x + (laatat[i].width);
-                var othertopA = laatat[i].y;
+            var otherleft = laattaTyyli.x;
+            var otherright = laattaTyyli.x + (laattaTyyli.width);
+            var othertop = laattaTyyli.y;
+            if (mybottom <= othertop && mybottom >= othertop+20 && myright >= otherleft && myleft <= otherright) {
+                this.gravitySpeed = -9.6
+                console.log('osui laattaan')
+            }
+            for (i = 0; i < laattaLista.length; i++) {
+                var otherleftA = laattaLista[i].x;
+                var otherrightA = laattaLista[i].x + (laattaLista[i].width);
+                var othertopA = laattaLista[i].y;
                 if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
                     this.gravitySpeed = -9.6
                     if (laatat[i].status == 0) {
@@ -171,6 +181,27 @@ function paivitaPeliAlue() {
         laatat[i].y += 1;
         laatat[i].update();
     }
+
+    randomTime = Math.random() * (10000 - 4000) + 4000;
+    setTimeout(erikoisLaattaFunktio(), randomTime)
+    //erikoislaatat
+    function erikoisLaattaFunktio(){
+        if (peliAlue.frameNo == 1 || everyinterval(200)) {
+            let laatta1 = 'red' //hajoava laatta
+            let laatta2 = 'green' //raketti
+            let laatta3 = 'blue' //hirviö
+            variNumero = Math.floor(Math.random()*3)+1
+            let x2 = Math.floor(Math.random()*400)+1
+            erikoisLaatta = new Komponentti(35, 5, 'red', x2, 0)
+            erikoisLaatat.push(erikoisLaatta)
+        }
+    }
+
+    for (i = 0; i < erikoisLaatat.length; i++) {
+        erikoisLaatat[i].y += 1;
+        erikoisLaatat[i].update();
+    }
+
     peliHahmo.speedX = 0;
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowRight']) {peliHahmo.speedX = 1;}
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowLeft']) {peliHahmo.speedX = -1;}
