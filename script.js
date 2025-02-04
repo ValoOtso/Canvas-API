@@ -1,6 +1,8 @@
 var peliHahmo;
 var laatat = []
 var laatta;
+var erikoisLaatat = [];
+var erikoisLaatta;
 var pisteet;
 var ensimmainenLaatta = false;
 let previousX = 0;
