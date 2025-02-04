@@ -141,9 +141,9 @@ function Komponentti(width, height, color, x, y, type) {
             // toisen komponentin reunoja varten, koska ensimmäinen laatta ei ollut arrayssä. Nyt alla
             // oleva for- silmukka laskee kollision kaikille komponenteille jotka ovat iteroitavaksi annetussa
             // arrayssä joten en usko että näille on tarvetta.
-           // var otherleft = laattaTyyli.x;
-            //var otherright = laattaTyyli.x + (laattaTyyli.width);
-           // var othertop = laattaTyyli.y;
+            var otherleft = laattaTyyli.x;
+            var otherright = laattaTyyli.x + (laattaTyyli.width);
+            var othertop = laattaTyyli.y;
             
             for (i = 0; i < laattaLista.length; i++) {
                 if (laattaLista[i].color == 'red' && laattaLista[i].status == 1) {
