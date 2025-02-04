@@ -224,6 +224,7 @@ function erikoisLaattaFunktio(){
         let laatta2 = 'green' //raketti
         let laatta3 = 'blue' //hirviö
         variNumero = Math.floor(Math.random()*3)+1
+        // x2 on laatan vasemmanpuoleinen sivu, koska canvasin leveys on 400 jos x2 = 400 se ei näy ollenkaan.
         let x2 = Math.floor(Math.random()*400)+1
         // Jokaiselle laatalle asetetaan 'laatta' tyyppi statuksen asetusta varten konstruktorissa.
         // Miksi erikoislaatta julistetaan erikseen muuttujana? Komponentit voi pushata suoraan arrayhin
