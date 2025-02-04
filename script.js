@@ -6,17 +6,18 @@ var erikoisLaatta;
 var pisteet;
 var ensimmainenLaatta = false;
 let previousX = 0;
+let pisteLuku = 0;
 
 //pelin käynnistys
 function aloitaPeli() {
     peliAlue.aloita();
     peliHahmo = new Komponentti(30, 30, 'red', 0, 700, 'peliHahmo');
     pisteet = new Komponentti("20px", "Consolas", "black", 10, 690, "text");
-    laatta = new Komponentti(35, 5, 'brown', 130, 350)
+    laatta = new Komponentti(35, 5, 'brown', 130, 350, 'laatta')
     laatat.push(laatta)
-    laatat.push(new Komponentti(35, 5, 'brown', 100, 200));
-    laatat.push(new Komponentti(35, 5, 'brown', 140, 100));
-    laatat.push(new Komponentti(35, 5, 'brown', 90, 500));
+    laatat.push(new Komponentti(35, 5, 'brown', 100, 200, 'laatta'));
+    laatat.push(new Komponentti(35, 5, 'brown', 140, 100, 'laatta'));
+    laatat.push(new Komponentti(35, 5, 'brown', 90, 500, 'laatta'));
 }
 
 //canvas
@@ -64,6 +65,9 @@ function Komponentti(width, height, color, x, y, type) {
     this.gravity = 0.3
     this.gravitySpeed = 0;
     this.type = type
+    if (this.type == 'laatta') {
+        this.status = 0;
+    }
     ctx = peliAlue.context;
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height)
@@ -130,6 +134,10 @@ function Komponentti(width, height, color, x, y, type) {
                 var othertopA = laatat[i].y;
                 if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
                     this.gravitySpeed = -9.6
+                    if (laatat[i].status == 0) {
+                        laatat[i].status = 1;
+                        pisteLuku += 1;
+                    }
                 }
             }
         }
@@ -155,7 +163,7 @@ function paivitaPeliAlue() {
             x = previousX+maxGap;
             console.log('b')
         }
-        laatat.push(new Komponentti(35, 5, 'brown', x, 0));
+        laatat.push(new Komponentti(35, 5, 'brown', x, 0, 'laatta'));
         previousX = x;
         console.log('x =', x);
     }
@@ -170,7 +178,7 @@ function paivitaPeliAlue() {
     peliHahmo.update();
     peliHahmo.pomppu();
     laatta.update();
-    pisteet.text = 'Pisteet: ' + peliAlue.frameNo;
+    pisteet.text = 'Pisteet: ' + pisteLuku;
     pisteet.update();
     }
 }
