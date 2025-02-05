@@ -46,7 +46,7 @@ var peliAlue = {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
     stop : function() {
-        alert('Peli loppui. Pisteet: ' + `${pisteLuku}`);
+        alert('Peli loppui. Pisteet: ' + `${pisteLuku}.`);
         document.location.reload();
         clearInterval(this.interval);
     }
