@@ -152,19 +152,19 @@ function Komponentti(width, height, color, x, y, type) {
             for (i = 0; i < laattaLista.length; i++) {
                 //Punaiset laatat 'hajoavat' eli ne poistetaan ensimmäisen osuman jälkeen
                 if (laattaLista[i].color == 'red' && laattaLista[i].status == 0) {
-                    laattaLista.splice(i, 1)
-                    continue
+                    laattaLista.splice(i, 1);
+                    continue;
                 }
                 var otherleftA = laattaLista[i].x;
                 var otherrightA = laattaLista[i].x + (laattaLista[i].width);
                 var othertopA = laattaLista[i].y;
                 if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
-                    this.gravitySpeed = -9.6
+                    this.gravitySpeed = -9.6;
                     // Kun laatalle osuu ensimmäisen kerran saa pisteen.
                     // Ruskeiden laattojen väri muuttuu ensimmäisen osuman jälkeen.
                     if (laattaLista[i].status != 0) {
                         if (laattaLista[i].status == 1) {
-                            laattaLista[i].color = 'pink'
+                            laattaLista[i].color = 'pink';
                         }
                         laattaLista[i].status = 0;
                         pisteLuku += 1;
