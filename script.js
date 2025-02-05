@@ -154,7 +154,7 @@ function Komponentti(width, height, color, x, y, type) {
                 var othertop = laattaLista[i].y;
                 if (mybottom <= othertop+20 && mybottom >= othertop && myright >= otherleft && myleft <= otherright) {
                     this.gravitySpeed = -9.6;
-                    // Kun laatalle osuu ensimmäisen kerran saa pisteen.
+                    // Kun pysyvälle laatalle osuu ensimmäisen kerran saa pisteen.
                     // Pysyvien laattojen väri muuttuu ensimmäisen osuman jälkeen.
                     if (laattaLista[i].status != 0) {
                         if (laattaLista[i].status == 1) {
