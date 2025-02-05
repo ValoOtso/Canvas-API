@@ -9,13 +9,11 @@ var pisteet;
 let previousX = 140;
 let pisteLuku = 0;
 
-
 //pelin käynnistys
 function aloitaPeli() {
     peliAlue.aloita();
     peliHahmo = new Komponentti(30, 30, 'red', 0, 700, 'peliHahmo');
     pisteet = new Komponentti("20px", "Consolas", "black", 10, 690, "text");
-    //Jokaiselle laatalle asetetaan 'laatta' tyyppi statuksen asetusta varten konstruktorissa.
     laatta = new Komponentti(35, 5, 'brown', 130, 350, 'laatta')
     laatat.push(laatta)
     laatat.push(new Komponentti(35, 5, 'brown', 100, 200, 'laatta'));
@@ -59,7 +57,6 @@ function everyinterval(n) {
     return false;
 }
 
-
 //komponentti konstruktori
 function Komponentti(width, height, color, x, y, type) {
     this.width = width;
@@ -73,8 +70,7 @@ function Komponentti(width, height, color, x, y, type) {
     this.gravitySpeed = 0;
     this.type = type
     if (this.type == 'laatta') {
-        // Jos komponentin tyyppi on 'laatta' ja väri 'brown' tai 'green' asetetaan this.status = 1;, jos väri on 'red'
-        // asetetaan this.status = 2;.
+        // Komponenteille asetetaan status- luku värin perusteella.
         if (this.color == 'brown') {
             this.status = 1;
         } else if (this.color == 'red') {
@@ -157,7 +153,7 @@ function Komponentti(width, height, color, x, y, type) {
                 if (mybottom <= othertop+20 && mybottom >= othertop && myright >= otherleft && myleft <= otherright) {
                     this.gravitySpeed = -9.6;
                     // Kun laatalle osuu ensimmäisen kerran saa pisteen.
-                    // Ruskeiden laattojen väri muuttuu ensimmäisen osuman jälkeen.
+                    // Pysyvien laattojen väri muuttuu ensimmäisen osuman jälkeen.
                     if (laattaLista[i].status != 0) {
                         if (laattaLista[i].status == 1) {
                             laattaLista[i].color = 'pink';
@@ -230,7 +226,6 @@ function paivitaPeliAlue() {
     pisteet.update();
     }
 }
-
 
 //erikoislaatat
 function erikoisLaattaFunktio(){
