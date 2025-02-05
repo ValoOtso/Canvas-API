@@ -146,19 +146,20 @@ function Komponentti(width, height, color, x, y, type) {
             var othertop = laattaTyyli.y;
             
             for (i = 0; i < laattaLista.length; i++) {
+                //Punaiset laatat 'hajoavat' eli ne poistetaan ensimmäisen osuman jälkeen
                 if (laattaLista[i].color == 'red' && laattaLista[i].status == 1) {
+                    laattaLista.splice(i, 1)
                     continue
-                } else {
-                    var otherleftA = laattaLista[i].x;
-                    var otherrightA = laattaLista[i].x + (laattaLista[i].width);
-                    var othertopA = laattaLista[i].y;
-                    if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
-                        this.gravitySpeed = -9.6
-                        // Kun laatalle osuu ensimmäisen kerran saa pisteen.
-                        if (laattaLista[i].status == 0) {
-                            laattaLista[i].status = 1;
-                            pisteLuku += 1;
-                        }
+                }
+                var otherleftA = laattaLista[i].x;
+                var otherrightA = laattaLista[i].x + (laattaLista[i].width);
+                var othertopA = laattaLista[i].y;
+                if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
+                    this.gravitySpeed = -9.6
+                    // Kun laatalle osuu ensimmäisen kerran saa pisteen.
+                    if (laattaLista[i].status == 0) {
+                        laattaLista[i].status = 1;
+                        pisteLuku += 1;
                     }
                 }
             }
@@ -203,12 +204,8 @@ function paivitaPeliAlue() {
     peliHahmo.update();
     peliHahmo.pomppu();
     for (i = 0; i < erikoisLaatat.length; i++) {
-        if (erikoisLaatat[i].color == 'red' && erikoisLaatat[i].status == 1) {
-            continue
-        } else {
-            erikoisLaatat[i].y += 1;
-            erikoisLaatat[i].update();
-        }
+        erikoisLaatat[i].y += 1;
+        erikoisLaatat[i].update();
     }
     laatta.update();
     pisteet.text = 'Pisteet: ' + pisteLuku;
