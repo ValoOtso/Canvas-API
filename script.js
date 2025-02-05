@@ -3,6 +3,8 @@ var laatat = []
 var laatta;
 var erikoisLaatat = [];
 var erikoisLaatta;
+var tuplausLaatat = [];
+var tuplausLaatta;
 var pisteet;
 var ensimmainenLaatta = false;
 let previousX = 140;
@@ -106,6 +108,7 @@ function Komponentti(width, height, color, x, y, type) {
         this.hitBottom();
         this.osuLaattaan(laatat)
         this.osuLaattaan(erikoisLaatat)
+        this.osuLaattaan(tuplausLaatat)
     }
     this.hitBottom = function() {
         var rockbottom = peliAlue.canvas.height - this.height;
@@ -161,6 +164,9 @@ function Komponentti(width, height, color, x, y, type) {
                         }
                         laattaLista[i].status = 0;
                         pisteLuku += 1;
+                        if (laattaLista[i].color == 'green') {
+                            pisteLuku *= 2 
+                        }
                     }
                 }
             }
@@ -198,6 +204,8 @@ function paivitaPeliAlue() {
     }
     var randomTime = Math.random() * (10000 - 4000) + 4000;
     setTimeout(erikoisLaattaFunktio(), randomTime)
+    var randomTime2 = Math.random() * (20000-10000) + 10000;
+    setTimeout(tuplausLaattaFunktio(), randomTime2)
     peliHahmo.speedX = 0;
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowRight']) {peliHahmo.speedX = 1;}
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowLeft']) {peliHahmo.speedX = -1;}
@@ -207,6 +215,10 @@ function paivitaPeliAlue() {
     for (i = 0; i < erikoisLaatat.length; i++) {
         erikoisLaatat[i].y += 1;
         erikoisLaatat[i].update();
+    }
+    for (i = 0; i < tuplausLaatat.length; i++) {
+        tuplausLaatat[i].y += 1;
+        tuplausLaatat[i].update();
     }
     laatta.update();
     pisteet.text = 'Pisteet: ' + pisteLuku;
@@ -221,5 +233,13 @@ function erikoisLaattaFunktio(){
         let x2 = Math.floor(Math.random()*365)+1
         erikoisLaatta = new Komponentti(35, 5, 'red', x2, 0, 'laatta')
         erikoisLaatat.push(erikoisLaatta)
+    }
+}
+
+function tuplausLaattaFunktio(){
+    if (peliAlue.frameNo == 1 || everyinterval(2000)) {
+        let x2 = Math.floor(Math.random()*365)+1
+        tuplausLaatta = new Komponentti(35, 5, 'green', x2, 0, 'laatta')
+        tuplausLaatat.push(tuplausLaatta)
     }
 }
