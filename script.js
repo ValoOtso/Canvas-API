@@ -6,7 +6,6 @@ var erikoisLaatta;
 var tuplausLaatat = [];
 var tuplausLaatta;
 var pisteet;
-var ensimmainenLaatta = false;
 let previousX = 140;
 let pisteLuku = 0;
 
@@ -74,12 +73,14 @@ function Komponentti(width, height, color, x, y, type) {
     this.gravitySpeed = 0;
     this.type = type
     if (this.type == 'laatta') {
-        // Jos komponentin tyyppi on 'laatta' ja väri 'brown' asetetaan this.status = 1;, jos väri on 'red'
+        // Jos komponentin tyyppi on 'laatta' ja väri 'brown' tai 'green' asetetaan this.status = 1;, jos väri on 'red'
         // asetetaan this.status = 2;.
         if (this.color == 'brown') {
             this.status = 1;
         } else if (this.color == 'red') {
             this.status = 2;
+        } else if (this.color == 'green') {
+            this.status = 3;
         }
     }
     ctx = peliAlue.context;
@@ -144,17 +145,16 @@ function Komponentti(width, height, color, x, y, type) {
             var myleft = this.x;
             var myright = this.x + (this.width);
             var mybottom = this.y + (this.height);
-            
             for (i = 0; i < laattaLista.length; i++) {
                 //Punaiset laatat 'hajoavat' eli ne poistetaan ensimmäisen osuman jälkeen
                 if (laattaLista[i].color == 'red' && laattaLista[i].status == 0) {
                     laattaLista.splice(i, 1);
                     continue;
                 }
-                var otherleftA = laattaLista[i].x;
-                var otherrightA = laattaLista[i].x + (laattaLista[i].width);
-                var othertopA = laattaLista[i].y;
-                if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
+                var otherleft = laattaLista[i].x;
+                var otherright = laattaLista[i].x + (laattaLista[i].width);
+                var othertop = laattaLista[i].y;
+                if (mybottom <= othertop+20 && mybottom >= othertop && myright >= otherleft && myleft <= otherright) {
                     this.gravitySpeed = -9.6;
                     // Kun laatalle osuu ensimmäisen kerran saa pisteen.
                     // Ruskeiden laattojen väri muuttuu ensimmäisen osuman jälkeen.
@@ -163,7 +163,7 @@ function Komponentti(width, height, color, x, y, type) {
                             laattaLista[i].color = 'pink';
                         }
                         //Jos laatta on vihreä, pisteet tuplaantuu
-                        if (laattaLista[i].color == 'green') {
+                        if (laattaLista[i].status == 3) {
                             pisteLuku *= 2 
                             laattaLista[i].color = 'lightgreen'
                         }
