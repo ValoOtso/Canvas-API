@@ -192,7 +192,6 @@ function paivitaPeliAlue() {
         } else if (x >= previousX+maxGap) {
             x = previousX+maxGap;
         }
-        //Jokaiselle laatalle asetetaan 'laatta' tyyppi statuksen asetusta varten konstruktorissa.
         laatat.push(new Komponentti(35, 5, 'brown', x, 0, 'laatta'));
         previousX = x;
     }
