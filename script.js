@@ -11,8 +11,10 @@ let pisteLuku = 0;
 
 //pelin käynnistys
 function aloitaPeli() {
+    document.getElementById('ohjeet').style.display = 'none'
+    document.getElementById('aloita').style.display = 'none'
     peliAlue.aloita();
-    peliHahmo = new Komponentti(30, 30, 'red', 0, 700, 'peliHahmo');
+    peliHahmo = new Komponentti(30, 30, 'rgb(25, 76, 78)', 0, 700, 'peliHahmo');
     pisteet = new Komponentti("20px", "Consolas", "black", 10, 690, "text");
     laatta = new Komponentti(35, 5, 'brown', 130, 350, 'laatta')
     laatat.push(laatta)
