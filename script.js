@@ -164,6 +164,7 @@ function Komponentti(width, height, color, x, y, type) {
                         }
                         laattaLista[i].status = 0;
                         pisteLuku += 1;
+                        //Jos laatta on vihreä, pisteet tuplaantuu
                         if (laattaLista[i].color == 'green') {
                             pisteLuku *= 2 
                         }
