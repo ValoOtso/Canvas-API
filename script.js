@@ -161,6 +161,10 @@ function Komponentti(width, height, color, x, y, type) {
                     if (laattaLista[i].status != 0) {
                         if (laattaLista[i].status == 1) {
                             laattaLista[i].color = 'pink';
+                            pisteLuku += 1;
+                        }
+                        if (laattaLista[i].status == 2) {
+                            pisteLuku += 1;
                         }
                         //Jos laatta on vihreä, pisteet tuplaantuu
                         if (laattaLista[i].status == 3) {
@@ -168,8 +172,6 @@ function Komponentti(width, height, color, x, y, type) {
                             laattaLista[i].color = 'lightgreen'
                         }
                         laattaLista[i].status = 0;
-                        pisteLuku += 1;
-                        
                     }
                 }
             }
