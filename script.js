@@ -1,5 +1,5 @@
 var peliHahmo;
-var laatat = []
+var laatat = [];
 var laatta;
 var erikoisLaatat = [];
 var erikoisLaatta;
@@ -16,8 +16,8 @@ function aloitaPeli() {
     peliAlue.aloita();
     peliHahmo = new Komponentti(30, 30, 'rgb(25, 76, 78)', 0, 700, 'peliHahmo');
     pisteet = new Komponentti("20px", "Consolas", "black", 10, 690, "text");
-    laatta = new Komponentti(35, 5, 'brown', 130, 350, 'laatta')
-    laatat.push(laatta)
+    laatta = new Komponentti(35, 5, 'brown', 130, 350, 'laatta');
+    laatat.push(laatta);
     laatat.push(new Komponentti(35, 5, 'brown', 100, 200, 'laatta'));
     laatat.push(new Komponentti(35, 5, 'brown', 140, 100, 'laatta'));
     laatat.push(new Komponentti(35, 5, 'brown', 90, 500, 'laatta'));
@@ -35,7 +35,7 @@ var peliAlue = {
         this.interval = setInterval(paivitaPeliAlue, 20);
         window.addEventListener('keydown', function (e) {
             peliAlue.avaimet = (peliAlue.avaimet || []);
-            peliAlue.avaimet[e.key] = true
+            peliAlue.avaimet[e.key] = true;
         })
         window.addEventListener('keyup', function (e) {
             peliAlue.avaimet[e.key] = false;
@@ -63,14 +63,14 @@ function everyinterval(n) {
 function Komponentti(width, height, color, x, y, type) {
     this.width = width;
     this.height = height;
-    this.color = color
+    this.color = color;
     this.x = x;
     this.y = y;
     this.speedX = 0;
     this.speedY = 0;
     this.gravity = 0.3
     this.gravitySpeed = 0;
-    this.type = type
+    this.type = type;
     if (this.type == 'laatta') {
         // Komponenteille asetetaan status- luku värin perusteella.
         if (this.color == 'brown') {
@@ -83,7 +83,7 @@ function Komponentti(width, height, color, x, y, type) {
     }
     ctx = peliAlue.context;
     ctx.fillStyle = color;
-    ctx.fillRect(this.x, this.y, this.width, this.height)
+    ctx.fillRect(this.x, this.y, this.width, this.height);
     this.update = function() {
         ctx = peliAlue.context;
         if (this.type == 'text') {
@@ -105,9 +105,9 @@ function Komponentti(width, height, color, x, y, type) {
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;  
         this.hitBottom();
-        this.osuLaattaan(laatat)
-        this.osuLaattaan(erikoisLaatat)
-        this.osuLaattaan(tuplausLaatat)
+        this.osuLaattaan(laatat);
+        this.osuLaattaan(erikoisLaatat);
+        this.osuLaattaan(tuplausLaatat);
     }
     this.hitBottom = function() {
         var rockbottom = peliAlue.canvas.height - this.height;
@@ -122,7 +122,7 @@ function Komponentti(width, height, color, x, y, type) {
         if(peliAlue.frameNo >= 200 && this.y == rockbottom){
             crash = true;
         }
-        return crash
+        return crash;
     }
     this.hitSides = function() {
         if (this.type == 'peliHahmo') {
@@ -166,7 +166,7 @@ function Komponentti(width, height, color, x, y, type) {
                         }
                         //Jos laatta on vihreä, pisteet tuplaantuu
                         if (laattaLista[i].status == 3) {
-                            pisteLuku *= 2 
+                            pisteLuku *= 2;
                             laattaLista[i].color = 'lightgreen'
                         }
                         laattaLista[i].status = 0;
@@ -180,7 +180,7 @@ function Komponentti(width, height, color, x, y, type) {
 //pelialueen päivitys
 function paivitaPeliAlue() {
     if(peliHahmo.gameOver()){
-        peliAlue.stop()
+        peliAlue.stop();
     }else{
     peliAlue.clear();
     peliAlue.frameNo += 1;
@@ -191,24 +191,20 @@ function paivitaPeliAlue() {
         let x = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
         if (x <= previousX-maxGap) {
             x = previousX-maxGap;
-            console.log('a')
         } else if (x >= previousX+maxGap) {
             x = previousX+maxGap;
-            console.log('b')
         }
-        //Jokaiselle laatalle asetetaan 'laatta' tyyppi statuksen asetusta varten konstruktorissa.
         laatat.push(new Komponentti(35, 5, 'brown', x, 0, 'laatta'));
         previousX = x;
-        console.log('x =', x);
     }
     for (i = 0; i < laatat.length; i++) {
         laatat[i].y += 1;
         laatat[i].update();
     }
     var randomTime = Math.random() * (10000 - 4000) + 4000;
-    setTimeout(erikoisLaattaFunktio(), randomTime)
+    setTimeout(erikoisLaattaFunktio(), randomTime);
     var randomTime2 = Math.random() * (20000-10000) + 10000;
-    setTimeout(tuplausLaattaFunktio(), randomTime2)
+    setTimeout(tuplausLaattaFunktio(), randomTime2);
     peliHahmo.speedX = 0;
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowRight']) {peliHahmo.speedX = 1;}
     if (peliAlue.avaimet && peliAlue.avaimet['ArrowLeft']) {peliHahmo.speedX = -1;}
@@ -232,16 +228,16 @@ function paivitaPeliAlue() {
 //erikoislaatat
 function erikoisLaattaFunktio(){
     if (peliAlue.frameNo == 1 || everyinterval(200)) {
-        let x2 = Math.floor(Math.random()*365)+1
-        erikoisLaatta = new Komponentti(35, 5, 'red', x2, 0, 'laatta')
-        erikoisLaatat.push(erikoisLaatta)
+        let x2 = Math.floor(Math.random()*365)+1;
+        erikoisLaatta = new Komponentti(35, 5, 'red', x2, 0, 'laatta');
+        erikoisLaatat.push(erikoisLaatta);
     }
 }
 
 function tuplausLaattaFunktio(){
     if (peliAlue.frameNo == 1 || everyinterval(2000)) {
-        let x2 = Math.floor(Math.random()*365)+1
-        tuplausLaatta = new Komponentti(35, 5, 'green', x2, 0, 'laatta')
-        tuplausLaatat.push(tuplausLaatta)
+        let x2 = Math.floor(Math.random()*365)+1;
+        tuplausLaatta = new Komponentti(35, 5, 'green', x2, 0, 'laatta');
+        tuplausLaatat.push(tuplausLaatta);
     }
 }
