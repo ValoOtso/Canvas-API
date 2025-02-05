@@ -70,9 +70,13 @@ function Komponentti(width, height, color, x, y, type) {
     this.gravitySpeed = 0;
     this.type = type
     if (this.type == 'laatta') {
-        // Jos komponentin tyyppi on 'laatta' asetetaan this.status = 0;, toistaiseksi tätä käytetään
-        // vain pistelaskuun osuLaattaan funktiossa.
-        this.status = 0;
+        // Jos komponentin tyyppi on 'laatta' ja väri 'brown' asetetaan this.status = 1;, jos väri on 'red'
+        // asetetaan this.status = 2;.
+        if (this.color == 'brown') {
+            this.status = 1;
+        } else if (this.color == 'red') {
+            this.status = 2;
+        }
     }
     ctx = peliAlue.context;
     ctx.fillStyle = color;
@@ -147,7 +151,7 @@ function Komponentti(width, height, color, x, y, type) {
             
             for (i = 0; i < laattaLista.length; i++) {
                 //Punaiset laatat 'hajoavat' eli ne poistetaan ensimmäisen osuman jälkeen
-                if (laattaLista[i].color == 'red' && laattaLista[i].status == 1) {
+                if (laattaLista[i].color == 'red' && laattaLista[i].status == 0) {
                     laattaLista.splice(i, 1)
                     continue
                 }
@@ -157,8 +161,12 @@ function Komponentti(width, height, color, x, y, type) {
                 if (mybottom <= othertopA+20 && mybottom >= othertopA && myright >= otherleftA && myleft <= otherrightA) {
                     this.gravitySpeed = -9.6
                     // Kun laatalle osuu ensimmäisen kerran saa pisteen.
-                    if (laattaLista[i].status == 0) {
-                        laattaLista[i].status = 1;
+                    // Ruskeiden laattojen väri muuttuu ensimmäisen osuman jälkeen.
+                    if (laattaLista[i].status != 0) {
+                        if (laattaLista[i].status == 1) {
+                            laattaLista[i].color = 'pink'
+                        }
+                        laattaLista[i].status = 0;
                         pisteLuku += 1;
                     }
                 }
