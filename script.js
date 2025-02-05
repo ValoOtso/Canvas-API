@@ -104,10 +104,8 @@ function Komponentti(width, height, color, x, y, type) {
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;  
         this.hitBottom();
-        // En usko että alla olevat 'laatta' ja 'erikoislaatta' ovat tarpeellisia. Katso
-        // laajempi selitys osuLaattaan() funktion kommentissa.
-        this.osuLaattaan(laatta, laatat)
-        this.osuLaattaan(erikoisLaatta, erikoisLaatat)
+        this.osuLaattaan(laatat)
+        this.osuLaattaan(erikoisLaatat)
     }
     this.hitBottom = function() {
         var rockbottom = peliAlue.canvas.height - this.height;
@@ -138,18 +136,11 @@ function Komponentti(width, height, color, x, y, type) {
             }
         }
     }  
-    this.osuLaattaan = function(laattaTyyli, laattaLista) {
+    this.osuLaattaan = function(laattaLista) {
         if (this.type == 'peliHahmo') {
             var myleft = this.x;
             var myright = this.x + (this.width);
             var mybottom = this.y + (this.height);
-            // En oikein ymmärrä mikä laattaTyylin tarkoitus on? Alunperin tällä kohtaa oli muuttujia
-            // toisen komponentin reunoja varten, koska ensimmäinen laatta ei ollut arrayssä. Nyt alla
-            // oleva for- silmukka laskee kollision kaikille komponenteille jotka ovat iteroitavaksi annetussa
-            // arrayssä joten en usko että näille alla oleville kolmelle on tarvetta.
-            var otherleft = laattaTyyli.x;
-            var otherright = laattaTyyli.x + (laattaTyyli.width);
-            var othertop = laattaTyyli.y;
             
             for (i = 0; i < laattaLista.length; i++) {
                 //Punaiset laatat 'hajoavat' eli ne poistetaan ensimmäisen osuman jälkeen
@@ -227,15 +218,7 @@ function paivitaPeliAlue() {
 //erikoislaatat
 function erikoisLaattaFunktio(){
     if (peliAlue.frameNo == 1 || everyinterval(200)) {
-        let laatta1 = 'red' //hajoava laatta
-        let laatta2 = 'green' //raketti
-        let laatta3 = 'blue' //hirviö
-        variNumero = Math.floor(Math.random()*3)+1
-        // x2 on laatan vasemmanpuoleinen sivu, koska canvasin leveys on 400 jos x2 = 400 se ei näy ollenkaan.
-        let x2 = Math.floor(Math.random()*400)+1
-        // Jokaiselle laatalle asetetaan 'laatta' tyyppi statuksen asetusta varten konstruktorissa.
-        // Miksi erikoislaatta julistetaan erikseen muuttujana? Komponentit voi pushata suoraan arrayhin
-        // ja osuLaattaan() käy ne for- silmukassa läpi joka tapauksessa. Sama pätee 'laatta' muuttujaan.
+        let x2 = Math.floor(Math.random()*365)+1
         erikoisLaatta = new Komponentti(35, 5, 'red', x2, 0, 'laatta')
         erikoisLaatat.push(erikoisLaatta)
     }
